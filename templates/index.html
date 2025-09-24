@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Demo</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; background: #101020; color: white; }
+        canvas { background: #202040; display: block; margin: 20px auto; border: 2px solid white; }
+        button { margin-top: 15px; padding: 10px 20px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Игра Авиатор (демо)</h1>
+    <canvas id="gameCanvas" width="500" height="300"></canvas>
+    <br>
+    <button onclick="startGame()">▶ Играть</button>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        let planeX = 50;
+        let planeY = 150;
+        let flying = false;
+
+        function drawPlane() {
+            ctx.fillStyle = "red";
+            ctx.fillRect(planeX, planeY, 30, 15); // простой самолётик
+        }
+
+        function gameLoop() {
+            if (!flying) return;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            planeX += 2; // движение вперёд
+            if (planeX > canvas.width) planeX = 0;
+
+            drawPlane();
+            requestAnimationFrame(gameLoop);
+        }
+
+        function startGame() {
+            flying = true;
+            planeX = 50;
+            planeY = 150;
+            gameLoop();
+        }
+    </script>
+</body>
+</html>
